@@ -1,18 +1,19 @@
 const core = require('@actions/core');
-const wait = require('./wait');
-
 
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
+    const idGsheet = core.getInput('idGsheet');
+    const creds = core.getInput('creds')
+    const prBranch = core.getInput('prBranch')
+    const cellToWrite = core.getInput('cellToWrite')
 
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
+    core.info('idGsheet: ', idGsheet);
+    core.info('creds: ', creds);
+    core.info('prBrach: ', prBranch);
+    core.info('cellToWrite: ', cellToWrite);
 
-    core.setOutput('time', new Date().toTimeString());
+    core.setOutput('Gsheet completed');
   } catch (error) {
     core.setFailed(error.message);
   }
